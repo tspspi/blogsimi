@@ -100,6 +100,12 @@ blogsimi genrel --out _data/related.json
 
 ## Development
 
+The package is available via [PyPi](https://pypi.org/project/blogsimi/) and can be installed via
+
+```
+pip install blogsimi
+```
+
 The repository uses a `src/` layout.  For local development, install in editable mode:
 
 ```bash
