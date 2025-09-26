@@ -1,0 +1,47 @@
+[build-system]
+requires = [
+  "setuptools>=68",
+  "wheel",
+  "setuptools-git-versioning"
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "blogsimi"
+dynamic = ["version"]
+description = "Semantic related-article indexer and generator for static blogs."
+readme = "README.md"
+requires-python = ">=3.9"
+authors = [
+  { name = "Thomas Spielauer", email = "pypipackages01@tspi.at" }
+]
+keywords = [ "semantic-search", "blog", "pgvector", "recommendations" ]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Intended Audience :: Developers",
+  "Topic :: Internet :: WWW/HTTP",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+  "License :: OSI Approved :: BSD License"
+]
+dependencies = [
+  "beautifulsoup4>=4.9",
+  "markdownify>=0.12",
+  "psycopg2-binary>=2.9",
+  "requests>=2.28"
+]
+
+[project.scripts]
+blogsimi = "blogsimi.cli:main"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools-git-versioning]
+enabled = true
