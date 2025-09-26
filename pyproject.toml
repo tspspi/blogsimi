@@ -11,6 +11,8 @@ name = "blogsimi"
 dynamic = ["version"]
 description = "Semantic related-article indexer and generator for static blogs."
 readme = "README.md"
+license = "BSD-3-Clause"
+license-files = "LICENSE"
 requires-python = ">=3.9"
 authors = [
   { name = "Thomas Spielauer", email = "pypipackages01@tspi.at" }
