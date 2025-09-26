@@ -69,7 +69,15 @@ with `--config`).  The file is JSON and mirrors the defaults baked into the pack
 
 Set `OPENAI_API_KEY` (or the environment variable you configure) when using the
 OpenAI provider.  Ensure your PostgreSQL instance has the `pgvector` extension
-installed. You have to manually enable the extension as a superuser in the database!
+installed. You have to manually enable the extension as a superuser in the database:
+
+```SQL
+-- as a PostgreSQL superuser
+CREATE ROLE blog LOGIN PASSWORD 'blog';
+CREATE DATABASE blog OWNER blog;
+\c blog
+CREATE EXTENSION IF NOT EXISTS vector;  -- requires superuser or appropriate privileges
+```
 
 ## CLI Usage
 
