@@ -33,7 +33,7 @@ DEFAULTS: Dict[str, Any] = {
         "model": "nomic-embed-text",       # ollama model OR openai embedding model
         "ollama_url": "http://127.0.0.1:11434/api/embeddings",
         "openai_api_base": "https://api.openai.com/v1/embeddings",
-        "openai_api_key_env": "OPENAI_API_KEY"
+        "openai_api_key": "OPENAI_API_KEY"
         # vector dim will be auto-detected from provider during (re)init
     },
     "db": {
@@ -195,11 +195,10 @@ def embed_texts_ollama(texts: List[str], model: str, url: str) -> List[List[floa
         embs.append(r["embedding"])
     return embs
 
-def embed_texts_openai(texts: List[str], model: str, base: str, api_key_env: str) -> List[List[float]]:
-    key = os.environ.get(api_key_env)
-    if not key:
-        raise RuntimeError(f"OpenAI API key missing (env {api_key_env})")
-    headers = {"Authorization": f"Bearer {key}"}
+def embed_texts_openai(texts: List[str], model: str, base: str, api_key: str) -> List[List[float]]:
+    if not api_key:
+        raise RuntimeError(f"OpenAI API key missing)")
+    headers = {"Authorization": f"Bearer {api_key}"}
     r = requests.post(base, json={"model": model, "input": texts}, headers=headers, timeout=600)
     r.raise_for_status()
     js = r.json()
@@ -209,7 +208,7 @@ def embeddings_for(texts: List[str], cfg: Dict[str, Any]) -> List[List[float]]:
     emb = cfg["embedding"]
     if emb["provider"] == "ollama":
         return embed_texts_ollama(texts, emb["model"], emb["ollama_url"])
-    return embed_texts_openai(texts, emb["model"], emb["openai_api_base"], emb["openai_api_key_env"])
+    return embed_texts_openai(texts, emb["model"], emb["openai_api_base"], emb["openai_api_key"])
 
 def detect_embedding_dim(cfg: Dict[str, Any]) -> int:
     vecs = embeddings_for(["dimension probe"], cfg)
